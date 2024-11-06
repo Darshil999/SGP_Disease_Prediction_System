@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center my-5">
+    <div class="card shadow-lg p-5 animate__animated animate__fadeInUp" style="background: linear-gradient(135deg, #8e2de2, #4a00e0); color: white;">
+        <h1 class="display-4"><i class="fas fa-notes-medical"></i> Prediction Result</h1>
+        <p class="lead">{{ prediction }}</p>
+
+        <div class="mt-3">
+            {% if prediction_type == 'heart' %}
+                <p><i class="fas fa-heartbeat fa-3x"></i></p>
+                <p>This result pertains to Heart Disease Prediction.</p>
+            {% elif prediction_type == 'diabetes' %}
+                <p><i class="fas fa-syringe fa-3x"></i></p>
+                <p>This result pertains to Diabetes Prediction.</p>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'home' %}" class="btn btn-light mt-4" style="color: #ff0000;" ><strong>Go Back to Home</strong></a>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+    .animate__animated {
+        animation-duration: 1.5s;
+    }
+
+
+/* Dark Mode Styling */
+body.dark-mode {
+    background-color: #2E2E2E;
+    color: #F5F6FA;
+}
+
+.dark-mode .card {
+    background-color: #3E3E3E;
+    color: #F5F6FA;
+}
+
+.dark-mode .list-group-item {
+    background-color: #3E3E3E;
+    color: #F5F6FA;
+}
+
+.dark-mode .btn {
+    color: white;
+}
+
+/* Dark Mode Toggle Button */
+#dark-mode-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+</style>
+
+<script>
+    // Check local storage for dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+
+    // Dark Mode Toggle Script
+    document.getElementById('dark-mode-toggle').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        // Save the preference to local storage
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    });
+</script>
+{% endblock %}
